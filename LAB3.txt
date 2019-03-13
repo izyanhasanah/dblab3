@@ -1,0 +1,82 @@
+CREATE TABLE HOTEL
+        (hotelNo     int          not null,
+         hotelName   varchar(20)  not null,
+         city        varchar(20)  not null,
+        PRIMARY KEY(hotelNo));
+
+CREATE TABLE ROOM
+        (roomNo      int          not null,
+         hotelNo     int          not null,
+         type        varchar(10)  not null,
+         price       varchar(5)   not null,
+        PRIMARY KEY(roomNo,hotelNo));
+
+CREATE TABLE GUEST
+        (guestNo      int          not null,
+         guestName    varchar(20)  not null,
+         guestAddress varchar(25)  not null,
+        PRIMARY KEY(guestNo));
+
+CREATE TABLE BOOKING
+        (hotelNo     int          not null,
+         guestNo     int          not null,
+         dateFROM    date         not null,
+         dateTO      date,
+         roomNO      int          not null,
+        PRIMARY KEY(hotelNo,guestNo,dateFROM));
+
+ALTER TABLE ROOM ADD CONSTRAINT ROOM_hotelNo_fk FOREIGN KEY(hotelNo) REFERENCES HOTEL(hotelNo);
+ALTER TABLE BOOKING ADD CONSTRAINT BOOKING_hotelNo_fk FOREIGN KEY(hotelNo) REFERENCES HOTEL(hotelNo);
+ALTER TABLE BOOKING ADD CONSTRAINT BOOKING_guestNo_fk FOREIGN KEY(guestNo) REFERENCES GUEST(guestNo);
+
+INSERT INTO HOTEL VALUES (1,'Traders Hotel', 'Malacca');
+INSERT INTO HOTEL VALUES (2,'Pacific Regency Hotel', 'Genting Highland');
+INSERT INTO HOTEL VALUES (3,'Sunway Putra Hotel', 'Kuala Lumpur');
+INSERT INTO HOTEL VALUES (4,'Shangri-La Hotel', 'Kuala Lumpur');
+INSERT INTO HOTEL VALUES (5,'Corus Resort', 'Port Dickson');
+
+INSERT INTO ROOM VALUES (234,1,'Single','RM100');
+INSERT INTO ROOM VALUES (154,2,'Couple','RM250');
+INSERT INTO ROOM VALUES (113,3,'Executive','RM359');
+INSERT INTO ROOM VALUES (232,4,'Family','RM435');
+INSERT INTO ROOM VALUES (115,5,'Premium','RM899');
+
+INSERT INTO GUEST VALUES (23,'Wan Nur Fadhilah','Wangsa Maju');
+INSERT INTO GUEST VALUES (25,'Fatin Amirah','Shah Alam');
+INSERT INTO GUEST VALUES (27,'Sakinah Hukil','Bangi');
+INSERT INTO GUEST VALUES (29,'Nur Izyan Hasanah','Tanjung Malim');
+INSERT INTO GUEST VALUES (31,'Nur Fatihah','Gombak');
+
+INSERT INTO BOOKING VALUES (1,23,TO_DATE('13/3/2019','DD-MM-YYYY'),TO_DATE('16/3/2019','DD-MM-YYYY'),234);
+INSERT INTO BOOKING VALUES (2,25,TO_DATE('11/2/2019','DD-MM-YYYY'),TO_DATE('20/2/2019','DD-MM-YYYY'),154);
+INSERT INTO BOOKING VALUES (3,27,TO_DATE('20/1/2019','DD-MM-YYYY'),TO_DATE('25/1/2019','DD-MM-YYYY'),113);
+INSERT INTO BOOKING VALUES (4,29,TO_DATE('04/4/2019','DD-MM-YYYY'),TO_DATE('05/4/2019','DD-MM-YYYY'),232);
+INSERT INTO BOOKING VALUES (5,31,TO_DATE('17/6/2019','DD-MM-YYYY'),TO_DATE('19/6/2019','DD-MM-YYYY'),115);
+
+
+
+Q1: Aggregate functions 
+1. How many hotels are there? 
+2. What is the average price of a room? 
+3. What is the total revenue per night from all double room? 
+4. How many different guest have made booking for August? 
+
+Q2: Subqueries and joins 
+1. List the price and type of all rooms at the Grosvenor Hotel. 
+2. List all guests currently staying at the Grosvenor Hotel. 
+3. List the details of all rooms at the Grosvenor Hotel, including the name of the guest staying in the room, if the room is occupied. 
+4. What is the total income from bookings for the Grosvenor Hotel today? 
+5. List the room that are currently unoccupied at the Grosvenor Hotel. 
+6. What is the lost income from unoccupied rooms at the Grosvenor Hotel? 
+ 
+Q3: Grouping 
+1. List the number of rooms in each hotel 
+2. List the number of rooms in each hotel in London. 
+3. What is the average number of bookings for each hotel in August? 
+4. What is the most commonly booked room type for each hotel in London 
+5. What is the lost income from unoccupied rooms at each hotel today? 
+ 
+Q4: Populating tables 
+1. Insert rows into each of these tables. 
+2. Update the price of all rooms by 5%. 
+
